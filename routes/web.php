@@ -3,6 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\GroupController;
+use App\Http\Middleware\Role;
 use Inertia\Inertia;
 
 /*
@@ -24,6 +28,25 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::middleware(['auth','role:group'])->group(function(){
+    Route::get('/group',[GroupController::class,'group_page'])->name('group.dashboard');
+    
+});
+
+
+Route::middleware(['auth','role:guest'])->group(function(){
+    Route::get('/guest',[GuestController::class,'guest_page'])->name('guest.dashboard');
+
+});
+
+
+
+Route::middleware(['auth','role:admin'])->group(function(){
+    Route::get('/admin',[AdminController::class,'admin_page'])->name('admin.dashboard');
+
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
