@@ -20,6 +20,14 @@ use Inertia\Inertia;
 |
 */
 
+
+
+
+Route::middleware(['auth','role:admin'])->group(function(){
+    Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+
+});
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -42,10 +50,7 @@ Route::middleware(['auth','role:guest'])->group(function(){
 
 
 
-Route::middleware(['auth','role:admin'])->group(function(){
-    Route::get('/admin',[AdminController::class,'admin_page'])->name('admin.dashboard');
 
-});
 
 
 Route::get('/dashboard', function () {
@@ -58,4 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/user', [AdminController::class, 'create_user'])->name('create_user');
+    Route::get('/admin/assign', [AdminController::class, 'assignProjectsToGuests'])->name('admin.assign');
+
+    
 require __DIR__.'/auth.php';

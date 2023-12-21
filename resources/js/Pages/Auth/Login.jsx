@@ -31,8 +31,8 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
-            <form onSubmit={submit}>
+            <h1 className='mb-10 font-bold text-lg' >LOGIN</h1>
+            <form className='rounded-md bg-gray-200 p-10' onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
 
