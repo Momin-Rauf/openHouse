@@ -8,17 +8,25 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use App\Models\Evaluation;
+use DB;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $groups = User::where('role', 'group')->get();
+        // Retrieve project evaluations with related project and guest information
+
+
         
+        $projects = DB::table('project_evaluations')->get();
+
+        $groups = User::where('role', 'group')->get();
         $guests = User::where('role', 'guest')->get();
         return Inertia::render('admin/Admin', [
             'groups'=>$groups,
-            'guests'=>$guests
+            'guests'=>$guests,
+            'projects'=>$projects,
         ]);
     }
 
@@ -43,34 +51,7 @@ class AdminController extends Controller
     }
 
  
-    private function prepareDataForDisplay()
-    {
-        // Retrieve all groups with their projects and assigned guests
-        $groups = Group::with('projects.assignedGuests')->get();
-    
-        $dataUser = [];
-    
-        foreach ($groups as $group) {
-            foreach ($group->projects as $project) {
-                $projectName = $project->name;
-    
-                // Get the assigned guests for the project
-                $assignedGuests = $project->assignedGuests;
-    
-                foreach ($assignedGuests as $assignedGuest) {
-                    $guestName = $assignedGuest->name;
-    
-                    $dataUser[] = [
-                        'group_name' => $group->name,
-                        'project_name' => $projectName,
-                        'assigned_guest' => $guestName,
-                    ];
-                }
-            }
-        }
-    
-        return Inertia::render('admin/Admin', ['dataUser' => $dataUser]);
-    }
+   
     
     public function assignProjectsToGuests()
     {

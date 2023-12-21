@@ -8,9 +8,10 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Admin({groups,guests,dataUser}) {
+export default function Admin({groups,guests,projects}) {
   const [group,setgroup] = useState([]);
   const [guest,setguest] = useState([]);
+  const [project,setproject] = useState([]);
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -28,9 +29,10 @@ export default function Admin({groups,guests,dataUser}) {
 
     useEffect(() => {
         const fetchGroups = async () => {
-         setgroup(groups);
-         console.log(dataUser);
-         setguest(guests);
+            setgroup(groups);
+            setguest(guests);
+            setproject(projects);
+         
         
         };
 
@@ -174,11 +176,21 @@ export default function Admin({groups,guests,dataUser}) {
     }
 </div>
 
+
+<h1>Projects</h1>
+<div className='bg-blue-400 shadow-sm flex gap-5 flex-col p-10   shadow-black w-[50%] h-auto'>
+    
+    {
+        project.map((g, index) => (
+            <GroupCard key={index} name={"Project_id:"+ g.id+ "==>Rating:" + g.rating} />
+        ))
+    }
+</div>
+
         </GuestLayout>
 
         
 
-        <button onClick={()=>{route('admin.assign')}} >Assign Projects</button>
 
 
         

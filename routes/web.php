@@ -66,6 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/user', [AdminController::class, 'create_user'])->name('create_user');
     Route::get('/admin/assign', [AdminController::class, 'assignProjectsToGuests'])->name('admin.assign');
-
+   
     
 require __DIR__.'/auth.php';
