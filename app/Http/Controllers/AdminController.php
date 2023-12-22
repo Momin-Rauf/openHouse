@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Assuming your model is named User
+use App\Models\User;
+use App\Models\Project; 
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -17,16 +18,17 @@ class AdminController extends Controller
     {
         // Retrieve project evaluations with related project and guest information
 
+        $projects = Project::all();
 
         
-        $projects = DB::table('project_evaluations')->get();
+        
 
         $groups = User::where('role', 'group')->get();
         $guests = User::where('role', 'guest')->get();
         return Inertia::render('admin/Admin', [
             'groups'=>$groups,
             'guests'=>$guests,
-            'projects'=>$projects,
+            'Projects'=>$projects,
         ]);
     }
 
@@ -52,44 +54,18 @@ class AdminController extends Controller
 
  
    
-    
-    public function assignProjectsToGuests()
-    {
-        DB::beginTransaction();
-    
-        try {
-            $guests = User::where('role', 'guest')->with('preferences')->get();
-            $groups = User::where('role', 'group')->with('projects')->get();
-    
-            foreach ($guests as $guest) {
-                $assignedProjects = [];
-    
-                foreach ($guest->preferences as $preference) {
-                    $matchingGroups = $groups->filter(function ($group) use ($preference) {
-                        return strpos($group->projects->assigned_words, $preference->preference) !== false;
-                    });
-    
-                    foreach ($matchingGroups as $matchingGroup) {
-                        $project = $matchingGroup->projects->random();
-    
-                        if (!in_array($project->id, $assignedProjects)) {
-                            // Attach the project to the user and update the 'allocated' column
-                            $guest->assignedProjects()->attach($project->id, ['allocated' => $guest->id]);
-                            $assignedProjects[] = $project->id;
-                            break;
-                        }
-                    }
-                }
-            }
-    
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            // Handle the exception, log, or throw it.
-        }
-    
-        return $this->prepareDataForDisplay();
+    public function admin_logout(Request $request){
+        $user = $request->user();
+
+        Auth::logout();
+
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
+    
     
 
         

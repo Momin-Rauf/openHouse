@@ -15,53 +15,36 @@ class ProjectSeeder extends Seeder
         // Sample data for projects
         $projects = [
             [
-                'name' => 'Project 1',
+                'name' => 'CitySearch',
                 'assigned_words' => 'ML',
-                'group_id' => 16,
-                'allocated_to' => 1,
+                'group_id' => 1,
+                'allocated_to' => 8,
             ],
             [
-                'name' => 'Project 2',
+                'name' => 'Doctech',
                 'assigned_words' => 'ML',
-                'group_id' => 12,
-                'allocated_to' => 1,
-            ],
-            [
-                'name' => 'Project 1',
-                'assigned_words' => 'Web',
-                'group_id' => 13,
-                'allocated_to' => 1,
-            ],
-            [
-                'name' => 'Project 2',
-                'assigned_words' => 'Web',
-                'group_id' => 14,
-                'allocated_to' => 1,
-            ],
-            [
-                'name' => 'Project 1',
-                'assigned_words' => 'blockchain',
-                'group_id' => 15,
-                'allocated_to' => 1,
-            ],
-            [
-                'name' => 'Project 2',
-                'assigned_words' => 'blockchain',
                 'group_id' => 2,
-                'allocated_to' => 1,
+                'allocated_to' => 8,
             ],
             [
-                'name' => 'Project 1',
+                'name' => 'Attendece Recorder',
                 'assigned_words' => 'AI',
                 'group_id' => 3,
-                'allocated_to' => 1,
+                'allocated_to' => 7,
             ],
             [
-                'name' => 'Project 2',
+                'name' => 'Food app',
                 'assigned_words' => 'AI',
                 'group_id' => 4,
-                'allocated_to' => 1,
+                'allocated_to' => 7,
             ],
+            [
+                'name' => 'Penny Tracker',
+                'assigned_words' => 'blockchain',
+                'group_id' => 5,
+                'allocated_to' => 6,
+            ],
+            
             // Add more projects as needed
         ];
 

@@ -9,11 +9,16 @@ class Project extends Model
 {
 
     protected $guard = [];
-    public function evaluations()
-    {
-        return $this->hasMany(Project::class);
-    }
-
+    protected $attributes = [
+        'assigned_words' => 'ML',
+    ];
+    protected $fillable = [
+        'name',
+        'allocated_to',
+        'group_id',
+        'assign_words',
+    ];
+    
     
 }
 

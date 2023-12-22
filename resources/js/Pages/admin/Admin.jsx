@@ -8,7 +8,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Admin({groups,guests,projects}) {
+export default function Admin({groups,guests,Projects}) {
   const [group,setgroup] = useState([]);
   const [guest,setguest] = useState([]);
   const [project,setproject] = useState([]);
@@ -31,7 +31,7 @@ export default function Admin({groups,guests,projects}) {
         const fetchGroups = async () => {
             setgroup(groups);
             setguest(guests);
-            setproject(projects);
+            setproject(Projects);
          
         
         };
@@ -186,7 +186,13 @@ export default function Admin({groups,guests,projects}) {
         ))
     }
 </div>
-
+<Link
+  href={route('logout.admin')}
+  
+  className="absolute top-[-4%] right-5 bg-blue-900 rounded-md text-white p-3 mt-10"
+>
+  Logout
+</Link>
         </GuestLayout>
 
         

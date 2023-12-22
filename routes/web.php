@@ -25,9 +25,12 @@ use Inertia\Inertia;
 
 Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+    
+    Route::get('/admin/logout',[GuestController::class,'admin_logout'])->name('logout.admin');
 
 });
 
+ 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -40,11 +43,14 @@ Route::get('/', function () {
 Route::middleware(['auth','role:group'])->group(function(){
     Route::get('/group',[GroupController::class,'group_page'])->name('group.dashboard');
     
+    Route::get('/group/logout',[GuestController::class,'group_logout'])->name('logout.group');
+    
 });
 
 
 Route::middleware(['auth','role:guest'])->group(function(){
     Route::get('/guest',[GuestController::class,'guest_page'])->name('guest.dashboard');
+    Route::get('/guest/logout',[GuestController::class,'guest_logout'])->name('logout.guest');
 
 });
 
@@ -67,5 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/user', [AdminController::class, 'create_user'])->name('create_user');
     Route::get('/admin/assign', [AdminController::class, 'assignProjectsToGuests'])->name('admin.assign');
    
+    Route::post('/guest/rate', [GuestController::class,'rate' ])->name('rate.project');
+    Route::post('/group/assign_word', [GroupController::class,'assign_word' ])->name('assign.word');
     
 require __DIR__.'/auth.php';

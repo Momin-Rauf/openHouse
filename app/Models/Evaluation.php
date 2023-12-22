@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Evaluation extends Model
 {
     protected $guard = [];
-    public function evaluator()
-    {
-        return $this->belongsTo(Guest::class);
-    }
+    protected $fillable = [
+        'project_id',
+        'evaluator_id',
+        'rating',
+            ];
+   
 
 }
